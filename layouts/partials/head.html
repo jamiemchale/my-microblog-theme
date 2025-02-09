@@ -1,0 +1,35 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+
+  <title>
+    {{ block "title" . }} {{ if .IsHome }}{{ .Site.Title }}{{ else }}{{
+    .Site.Title }} - {{ .Title }}{{ end }} {{ end }}
+  </title>
+  <base href="/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet"
+  />
+
+  <meta name="description" content="{{ .Summary }}" />
+
+  <link
+    rel="shortcut icon"
+    href="https://micro.blog/{{ .Site.Author.username }}/favicon.png"
+    type="image/x-icon"
+  />
+
+  <link
+    rel="stylesheet"
+    href="css/main.css"
+    integrity="{{ .Data.Integrity }}"
+    crossorigin="anonymous"
+  />
+  <link rel="canonical" href="{{ .Permalink }}" />
+  {{ partial "microblog_head.html" . }}
+</head>

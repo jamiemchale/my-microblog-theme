@@ -1,0 +1,7 @@
+name = 'Theme name'
+description = 'Theme description'
+
+# If the theme has a single author
+[author]
+  name = 'Your name'
+  homepage = 'Your website'
