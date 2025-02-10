@@ -1,43 +1,62 @@
 {{ define "main" }}
-<div class="home h-feed">
+  <div class="home h-feed">
+    <ul class="post-list max-w-prose mx-auto">
+      {{ $paginator := .Paginate (where .Site.Pages.ByDate.Reverse "Type" "post") (index .Site.Params "archive-paginate" | default 25) }}
+      {{ range $paginator.Pages }}
 
-  <ul class="post-list max-w-prose mx-auto">
-  {{ $paginator := .Paginate (where .Site.Pages.ByDate.Reverse "Type" "post") (index .Site.Params "archive-paginate" | default 25) }}
-  {{ range $paginator.Pages  }}
+        <li class="h-entry">
+          <div
+            class="prose dark:prose-invert border-b border-flexoki-dark-ye pb-12 mb-12 mx-4"
+          >
+            {{ if .Title }}
+              <h1 class="p-name">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+              </h1>
+            {{ end }}
 
-  <li class="h-entry">
-    <div class="prose dark:prose-invert border-b border-flexoki-dark-ye pb-12 mb-12 mx-4">
-    {{ if .Title }}
-      <h1 class="p-name"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
-    {{ end }}
 
-    <div class="e-content">
-      {{ .Content }}
-    </div>
-    &rarr; <a href="{{ .Permalink }}" class="u-url"><span class="post-meta"><time class="dt-published" datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}">{{ .Date.Format "Jan 2, 2006" }}</time></span></a>
-    </div>
-      </li>
-    {{ end }}
-  </ul>
-
-</div>
-{{ if templates.Exists "partials/microhook-after-post-list.html" }}
-{{ partial "microhook-after-post-list.html" . }}
-{{ end }}
-{{ if templates.Exists "partials/microhook-pagination.html" }}
-{{ partial "microhook-pagination.html" . }}
-{{ else }}
-  <div class="max-w-prose mx-auto px-4 flex justify-between">
-      {{ if $paginator.HasPrev }}
-      <div>
-          <a href="{{ $paginator.Prev.URL }}" title="Previous Page"><span class="arrow">← Newer Posts</span></a>
-      </div>
+            <div class="e-content">
+              {{ .Content }}
+            </div>
+            &rarr;
+            <a href="{{ .Permalink }}" class="u-url"
+              ><span class="post-meta"
+                ><time
+                  class="dt-published"
+                  datetime="{{ .Date.Format "2006-01-02 15:04:05 -0700" }}"
+                  >{{ .Date.Format "Jan 2, 2006" }}</time
+                ></span
+              ></a
+            >
+          </div>
+        </li>
       {{ end }}
-      {{ if $paginator.HasNext }}
-      <div>
-          <a href="{{ $paginator.Next.URL }}"><span class="arrow">Older Posts →</span></a>
-      </div>
-      {{ end }}
+    </ul>
   </div>
-{{ end }}
+  {{ if templates.Exists "partials/microhook-after-post-list.html" }}
+    {{ partial "microhook-after-post-list.html" . }}
+  {{ end }}
+  {{ if templates.Exists "partials/microhook-pagination.html" }}
+    {{ partial "microhook-pagination.html" . }}
+  {{ else }}
+    <div class="max-w-prose mx-auto px-4 flex justify-between ">
+      <div class="w-1/3">
+        {{ if $paginator.HasNext }}
+          <a href="{{ $paginator.Next.URL }}"
+            ><span class="arrow">&larr; Older Posts</span></a
+          >
+        {{ end }}
+      </div>
+      <div class="w-1/3 text-center">
+        {{ $paginator.PageNumber }}/{{ $paginator.TotalPages }}
+      </div>
+      <div class="w-1/3 text-right">
+        {{ if $paginator.HasPrev }}
+          <a href="{{ $paginator.Prev.URL }}" title="Previous Page"
+            ><span class="arrow">Newer Posts &rarr;</span></a
+          >
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
 {{ end }}
