@@ -20,7 +20,24 @@
     {{ end }}
   </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "feed.xml" | absURL }}">via RSS</a></p>
-
 </div>
+{{ if templates.Exists "partials/microhook-after-post-list.html" }}
+{{ partial "microhook-after-post-list.html" . }}
+{{ end }}
+{{ if templates.Exists "partials/microhook-pagination.html" }}
+{{ partial "microhook-pagination.html" . }}
+{{ else }}
+  <div class="max-w-prose mx-auto px-4 flex justify-between">
+      {{ if $paginator.HasPrev }}
+      <div>
+          <a href="{{ $paginator.Prev.URL }}" title="Previous Page"><span class="arrow">← Newer Posts</span></a>
+      </div>
+      {{ end }}
+      {{ if $paginator.HasNext }}
+      <div>
+          <a href="{{ $paginator.Next.URL }}"><span class="arrow">Older Posts →</span></a>
+      </div>
+      {{ end }}
+  </div>
+{{ end }}
 {{ end }}

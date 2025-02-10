@@ -1,9 +1,7 @@
 <footer class="site-footer">
-  <div class="mx-auto max-w-prose my-12 px-2">
-    <div class="footer-col-wrapper">
-      <div class="footer-col footer-col-3">
+  <div class="mx-auto max-w-prose my-12 px-4">
+        <p class="rss-subscribe">Subscribe <a href="{{ "feed.xml" | absURL }}" class="underline">via RSS</a></p>
+
         <p class="text">{{ .Site.Params.description | safeHTML }}</p>
-      </div>
-    </div>
   </div>
 </footer>
