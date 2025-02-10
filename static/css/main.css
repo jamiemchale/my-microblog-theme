@@ -2565,8 +2565,29 @@
   .bg-\[var\(--my_variable\)\] {
     background-color: var(--my_variable);
   }
+  .bg-flexoki-blue-500 {
+    background-color: #3171B2;
+  }
+  .bg-flexoki-blue-800 {
+    background-color: #163B66;
+  }
+  .bg-flexoki-blue-900 {
+    background-color: #12253B;
+  }
+  .bg-flexoki-light-bg-2 {
+    background-color: #F2F0E5;
+  }
+  .bg-flexoki-light-or-2 {
+    background-color: #DA702C;
+  }
   .bg-flexoki-paper {
     background-color: #FFFCF0;
+  }
+  .bg-flexoki-yellow-100 {
+    background-color: #F6E2A0;
+  }
+  .bg-flexoki-yellow-200 {
+    background-color: #ECCB60;
   }
   .bg-red-500 {
     background-color: var(--color-red-500);
@@ -5215,6 +5236,11 @@
       :where(.prose > :last-child):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
         margin-bottom: 0;
       }
+    }
+  }
+  .dark\:bg-flexoki-blue-900 {
+    @media (prefers-color-scheme: dark) {
+      background-color: #12253B;
     }
   }
   .dark\:bg-flexoki-blue-950 {
