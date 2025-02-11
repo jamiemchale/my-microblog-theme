@@ -1,7 +1,11 @@
 <footer class="site-footer">
   <div class="mx-auto max-w-prose my-12 px-4">
-        <p class="rss-subscribe">Subscribe <a href="{{ "feed.xml" | absURL }}" class="underline">via RSS</a></p>
+    <p class="rss-subscribe">
+      Subscribe
+      <a href="{{ "feed.xml" | absURL }}" class="underline">via RSS</a>
+    </p>
 
-        <p class="text">{{ .Site.Params.description | safeHTML }}</p>
+    <p class="text">{{ .Site.Params.description | safeHTML }}</p>
   </div>
 </footer>
+<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
