@@ -19,7 +19,7 @@
     </header>
 
     <article class="post-content e-content">
-      {{ .Content }}
+      {{ partial "process_embeds.html" .Content }}
     </article>
 
     <a href="{{ .Permalink }}" class="u-url"

@@ -20,7 +20,7 @@
           >
 
           <div class="e-content prose dark:prose-invert mx-auto">
-            {{ .Content }}
+            {{ partial "process_embeds.html" .Content }}
           </div>
         </li>
       {{ end }}
