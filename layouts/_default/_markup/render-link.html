@@ -8,7 +8,15 @@
 {{- $host := (urls.Parse $u).Host | lower -}}
 {{- $isPlain := eq .Text .Destination -}}
 
-{{- if and (or (eq $host "open.spotify.com") (eq $host "youtu.be") (in $host "youtube.com")) $isPlain -}}
+{{- /*
+  Embed rules:
+    - Spotify: always embed when host is open.spotify.com, regardless of link text
+    - YouTube: embed only for plain/bare links to avoid surprising replacements
+*/ -}}
+
+{{- if eq $host "open.spotify.com" -}}
+  {{- partial "oembed.html" (dict "url" $u) -}}
+{{- else if or (eq $host "youtu.be") (in $host "youtube.com") -}}
   {{- partial "oembed.html" (dict "url" $u) -}}
 {{- else -}}
   <a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>

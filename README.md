@@ -2,4 +2,4 @@
 
 Last update: August 2025
 
-v1.1
+v1.2

@@ -1,0 +1,12 @@
+{{- /*
+  Usage:
+    {{< spotify url="https://open.spotify.com/track/..." >}}
+    {{< spotify "https://open.spotify.com/track/..." >}}
+  This maps to the same embed logic used by the render-link hook.
+*/ -}}
+
+{{- $url := .Get "url" | default (.Get 0) -}}
+{{- if $url -}}
+  {{- partial "oembed.html" (dict "url" $url) -}}
+{{- end -}}
+
