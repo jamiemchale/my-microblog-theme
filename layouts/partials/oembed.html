@@ -1,0 +1,41 @@
+{{- /*
+  Generic oEmbed helper (Spotify focused).
+  Usage:
+    - Partial:  {{ partial "oembed.html" (dict "url" someURL) }}
+    - Shortcode: {{< oembed URL >}}
+  Uses resources.GetRemote + transform.Unmarshal (no deprecated getJSON).
+*/ -}}
+
+{{- $url := .url | default . -}}
+{{- $host := (urls.Parse $url).Host | lower -}}
+{{- $endpoint := "" -}}
+{{- $provider := "" -}}
+
+{{- if eq $host "open.spotify.com" -}}
+  {{- $endpoint = printf "https://open.spotify.com/oembed?url=%s" (urlquery $url) -}}
+  {{- $provider = "spotify" -}}
+{{- else if or (eq $host "youtu.be") (in $host "youtube.com") -}}
+  {{- $endpoint = printf "https://www.youtube.com/oembed?url=%s" (urlquery $url) -}}
+  {{- $provider = "youtube" -}}
+{{- end -}}
+
+{{- if $endpoint -}}
+  {{- $remote := resources.GetRemote $endpoint -}}
+  {{- with $remote -}}
+    {{- $data := . | transform.Unmarshal -}}
+    {{- with $data -}}
+      {{- $html := .html | safeHTML -}}
+      {{- if eq $provider "youtube" -}}
+        <div class="embed embed-16by9">{{ $html }}</div>
+      {{- else -}}
+        {{- $html -}}
+      {{- end -}}
+    {{- else -}}
+      <a href="{{ $url | safeURL }}">{{ $url }}</a>
+    {{- end -}}
+  {{- else -}}
+    <a href="{{ $url | safeURL }}">{{ $url }}</a>
+  {{- end -}}
+{{- else -}}
+  <a href="{{ $url | safeURL }}">{{ $url }}</a>
+{{- end -}}

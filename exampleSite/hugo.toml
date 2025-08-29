@@ -1,0 +1,13 @@
+baseURL = "http://localhost:9876/"
+title = "Theme Playground"
+theme = "my-microblog-theme"
+themesDir = "../.."
+
+[server]
+  port = 9876
+  watch = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

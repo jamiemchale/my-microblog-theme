@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Photo on Theme Playground</title>
+    <link>http://localhost:9876/tags/photo/</link>
+    <description>Recent content in Photo on Theme Playground</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 03 Jan 2025 09:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:9876/tags/photo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sample Image Post</title>
+      <link>http://localhost:9876/post/photo-post/</link>
+      <pubDate>Fri, 03 Jan 2025 09:00:00 +0000</pubDate>
+      <guid>http://localhost:9876/post/photo-post/</guid>
+      <description>&lt;p&gt;Here is a sample post with an inline image to verify image rendering, spacing, and responsive behavior.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;https://images.unsplash.com/photo-1756227584303-f1400daaa69d?q=80&amp;amp;w=2624&amp;amp;auto=format&amp;amp;fit=crop&amp;amp;ixlib=rb-4.1.0&amp;amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&#34; alt=&#34;Sunlit mountain landscape&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Caption: Photo via Unsplash.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

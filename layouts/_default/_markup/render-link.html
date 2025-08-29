@@ -1,0 +1,15 @@
+{{- /*
+  Render hook for Markdown links. If a link is a bare Spotify URL
+  (text equals destination), render an embed via oEmbed. Otherwise
+  fall back to a normal anchor element.
+*/ -}}
+
+{{- $u := .Destination -}}
+{{- $host := (urls.Parse $u).Host | lower -}}
+{{- $isPlain := eq .Text .Destination -}}
+
+{{- if and (or (eq $host "open.spotify.com") (eq $host "youtu.be") (in $host "youtube.com")) $isPlain -}}
+  {{- partial "oembed.html" (dict "url" $u) -}}
+{{- else -}}
+  <a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- end -}}

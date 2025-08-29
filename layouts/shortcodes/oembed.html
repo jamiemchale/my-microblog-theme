@@ -1,0 +1,4 @@
+{{- /* Usage: {{< oembed URL >}} */ -}}
+{{- $url := .Get 0 -}}
+{{- partial "oembed.html" (dict "url" $url) -}}
+

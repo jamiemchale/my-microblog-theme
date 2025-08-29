@@ -31,5 +31,7 @@
     crossorigin="anonymous"
   />
   <link rel="canonical" href="{{ .Permalink }}" />
-  {{ partial "microblog_head.html" . }}
+  {{ if templates.Exists "partials/microblog_head.html" }}
+    {{ partial "microblog_head.html" . }}
+  {{ end }}
 </head>

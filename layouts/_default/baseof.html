@@ -12,7 +12,9 @@
     <main class="page-content">{{ block "main" . }}{{ end }}</main>
 
     {{ partial "footer.html" . }}
-    {{ partial "custom_footer.html" . }}
+    {{ if templates.Exists "partials/custom_footer.html" }}
+      {{ partial "custom_footer.html" . }}
+    {{ end }}
     {{ range
       .Site.Params.plugins_js
     }}

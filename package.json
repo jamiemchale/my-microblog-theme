@@ -1,6 +1,13 @@
 {
   "type": "module",
+  "scripts": {
+    "css:build": "npx @tailwindcss/cli -i assets/css/main.css -o static/css/main.css --minify",
+    "css:watch": "npx @tailwindcss/cli -i assets/css/main.css -o static/css/main.css --watch",
+    "serve": "hugo server -s exampleSite -t my-microblog-theme --themesDir ../.. -D -p 9876",
+    "dev": "concurrently -n css,serve \"npm:css:watch\" \"npm:serve\""
+  },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "@tailwindcss/cli": "^4.0.5",
     "@tailwindcss/typography": "^0.5.16",
     "prettier": "^3.5.0",
