@@ -19,20 +19,59 @@
   {{- $provider = "youtube" -}}
 {{- end -}}
 
-{{- if $endpoint -}}
-  {{- $remote := resources.GetRemote $endpoint -}}
-  {{- with $remote -}}
-    {{- $data := . | transform.Unmarshal -}}
-    {{- with $data -}}
-      {{- $html := .html | safeHTML -}}
-      {{- if eq $provider "youtube" -}}
-        <div class="embed embed-16by9">{{ $html }}</div>
-      {{- else -}}
-        {{- $html -}}
+{{- if eq $provider "youtube" -}}
+  {{- $u := urls.Parse $url -}}
+  {{- $path := $u.Path -}}
+  {{- $q := $u.RawQuery -}}
+  {{- $id := "" -}}
+  {{- if or (eq $host "youtu.be") (hasPrefix $path "/embed/") (hasPrefix $path "/shorts/") -}}
+    {{- $psegs := split (trim $path "/") "/" -}}
+    {{- /* youtu.be/{id} | embed/{id} | shorts/{id} */ -}}
+    {{- $id = index $psegs (sub (len $psegs) 1) -}}
+  {{- else -}}
+    {{- /* watch?v={id} */ -}}
+    {{- $id = replaceRE ".*v=([^&]+).*" "$1" $q -}}
+  {{- end -}}
+  {{- with $id -}}
+    <div class="embed embed-16by9">
+      <iframe
+        src="https://www.youtube.com/embed/{{ . }}"
+        title="YouTube video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </div>
+  {{- else -}}
+    <a href="{{ $url | safeURL }}">{{ $url }}</a>
+  {{- end -}}
+{{- else if eq $provider "spotify" -}}
+  {{- $u := urls.Parse $url -}}
+  {{- $segs := split (trim $u.Path "/") "/" -}}
+  {{- $type := "" -}}
+  {{- $sid := "" -}}
+  {{- if ge (len $segs) 2 -}}
+    {{- if hasPrefix (index $segs 0) "intl-" -}}
+      {{- if ge (len $segs) 3 -}}
+        {{- $type = index $segs 1 -}}
+        {{- $sid = index $segs 2 -}}
       {{- end -}}
     {{- else -}}
-      <a href="{{ $url | safeURL }}">{{ $url }}</a>
+      {{- $type = index $segs 0 -}}
+      {{- $sid = index $segs 1 -}}
     {{- end -}}
+  {{- end -}}
+  {{- if and $type $sid -}}
+    {{- $height := 152 -}}
+    {{- if eq $type "playlist" -}}
+      {{- $height = 380 -}}
+    {{- end -}}
+    <iframe
+      style="width:100%; height: {{ $height }}px; border: 0;"
+      src="https://open.spotify.com/embed/{{ $type }}/{{ $sid }}"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    ></iframe>
   {{- else -}}
     <a href="{{ $url | safeURL }}">{{ $url }}</a>
   {{- end -}}
